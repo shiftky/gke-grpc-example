@@ -1,7 +1,8 @@
 GO111MODULE=on
-BINARY=server
+SERVER_BINARY=server
+CLIENT_BINARY=client
 
-all: proto build
+all: proto build-server build-client
 
 proto:
 	protoc --go_out=plugins=grpc:. message/*.proto
@@ -9,8 +10,12 @@ proto:
 proto_clean:
 	rm -f message/*.pb.go
 
-build:
-	go build -o $(BINARY)
+build-server:
+	go build -o $(SERVER_BINARY) grpc_server/*.go
+
+build-client:
+	go build -o $(CLIENT_BINARY) grpc_client/*.go
 
 clean: proto_clean
-	rm -f $(BINARY)
+	rm -f $(SERVER_BINARY)
+	rm -f $(CLIENT_BINARY)
