@@ -4,7 +4,7 @@ CLIENT_BINARY=client
 
 all: proto build-server build-client
 
-proto:
+proto: proto_clean
 	protoc --go_out=plugins=grpc:. message/*.proto
 
 proto_clean:
@@ -16,6 +16,6 @@ build-server:
 build-client:
 	go build -o $(CLIENT_BINARY) grpc_client/*.go
 
-clean: proto_clean
+clean:
 	rm -f $(SERVER_BINARY)
 	rm -f $(CLIENT_BINARY)
