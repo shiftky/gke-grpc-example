@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
 	"io"
 	"log"
@@ -14,7 +15,10 @@ import (
 type client struct{}
 
 func main() {
-	conn, err := grpc.Dial("127.0.0.1:8080", grpc.WithInsecure())
+	host := flag.String("host", "127.0.0.1:8080", "gRPC server host (host:port)")
+	flag.Parse()
+
+	conn, err := grpc.Dial(*host, grpc.WithInsecure())
 	if err != nil {
 		log.Fatal(err)
 	}

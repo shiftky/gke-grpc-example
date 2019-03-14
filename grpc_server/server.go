@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net"
@@ -33,7 +34,10 @@ func (s *server) GetNewMessage(req *pb.Request, stream pb.MessageService_GetNewM
 }
 
 func main() {
-	lis, err := net.Listen("tcp", ":8080")
+	host := flag.String("host", "0.0.0.0:8080", "gRPC server host (host:port)")
+	flag.Parse()
+
+	lis, err := net.Listen("tcp", *host)
 	if err != nil {
 		log.Fatal(err)
 	}
