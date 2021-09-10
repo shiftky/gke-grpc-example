@@ -13,7 +13,9 @@ import (
 	"google.golang.org/grpc"
 )
 
-type server struct{}
+type server struct {
+	pb.UnimplementedMessageServiceServer
+}
 
 func (s *server) GetNewMessage(req *pb.Request, stream pb.MessageService_GetNewMessageServer) error {
 	h, err := os.Hostname()
@@ -33,6 +35,11 @@ func (s *server) GetNewMessage(req *pb.Request, stream pb.MessageService_GetNewM
 	return nil
 }
 
+func newServer() *server {
+	s := &server{}
+	return s
+}
+
 func main() {
 	host := flag.String("host", "0.0.0.0:8080", "gRPC server host (host:port)")
 	flag.Parse()
@@ -43,7 +50,7 @@ func main() {
 	}
 
 	s := grpc.NewServer()
-	pb.RegisterMessageServiceServer(s, new(server))
+	pb.RegisterMessageServiceServer(s, newServer())
 
 	if err = s.Serve(lis); err != nil {
 		log.Fatal(err)

@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "github.com/yukirii/gke-grpc-example/message";
+
 service MessageService {
   rpc GetNewMessage(Request) returns (stream Reply) {}
 }
