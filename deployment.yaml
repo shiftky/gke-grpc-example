@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: grpc-example
@@ -6,6 +6,9 @@ metadata:
     app: grpc-example
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: grpc-example
   template:
     metadata:
       labels:

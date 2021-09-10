@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: grpc-example
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: grpc-example
   ports:
