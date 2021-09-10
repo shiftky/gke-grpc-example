@@ -3,14 +3,16 @@ GO111MODULE=on
 SERVER_BINARY=server
 CLIENT_BINARY=client
 
-REGISTRY ?= shiftky
+REGISTRY ?= yukirii
 VERSION ?= $(shell git describe --exact-match 2> /dev/null || \
 					 git describe --match=$(git rev-parse --short=8 HEAD) --always --dirty --abbrev=8)
 
 all: proto build-server build-client
 
 proto: proto_clean
-	protoc --go_out=plugins=grpc:. message/*.proto
+	protoc --go_out=. --go_opt=paths=source_relative \
+		--go-grpc_out=. --go-grpc_opt=paths=source_relative \
+		message/*.proto
 
 proto_clean:
 	rm -f message/*.pb.go
@@ -26,8 +28,8 @@ clean:
 	rm -f $(CLIENT_BINARY)
 
 docker-build:
-	docker build -t $(REGISTRY)/gke-grpc-example:$(VERSION) .
+	docker build -t $(REGISTRY)/grpc-example:$(VERSION) .
 
 docker-push:
 	docker login -u="$(DOCKER_USERNAME)" -p="$(DOCKER_PASSWORD)"
-	docker push $(REGISTRY)/gke-grpc-example:$(VERSION)
+	docker push $(REGISTRY)/grpc-example:$(VERSION)

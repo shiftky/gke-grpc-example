@@ -8,7 +8,7 @@ import (
 	"os"
 	"time"
 
-	pb "github.com/shiftky/gke-grpc-example/message"
+	pb "github.com/yukirii/grpc-example/message"
 
 	"google.golang.org/grpc"
 )

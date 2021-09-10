@@ -1,11 +1,11 @@
-# gke-grpc-example
+# grpc-example
 
 ## build
 
 ```bash
-docker build -t ${REGISTRY}/gke-grpc-example:${VERSION} .
+docker build -t ${REGISTRY}/grpc-example:${VERSION} .
 docker login
-docker push ${REGISTRY}/gke-grpc-example:${VERSION}
+docker push ${REGISTRY}/grpc-example:${VERSION}
 
 or
 

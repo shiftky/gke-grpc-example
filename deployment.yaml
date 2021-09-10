@@ -1,19 +1,19 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: gke-grpc-example
+  name: grpc-example
   labels:
-    app: gke-grpc-example
+    app: grpc-example
 spec:
   replicas: 2
   template:
     metadata:
       labels:
-        app: gke-grpc-example
+        app: grpc-example
     spec:
       containers:
-      - name: gke-grpc-example
-        image: shiftky/gke-grpc-example:730352e5
+      - name: grpc-example
+        image: yukirii/grpc-example:latest
         imagePullPolicy: Always
         command: ["/server"]
         ports:
